@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CIO HOY – Colegio Inglés de Occidente</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,700;1,400&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --orange: #E85E00;
+    --blue:   #1A3A8F;
+    --gold:   #C9A84C;
+    --cream:  #F9F4EC;
+    --ink:    #1C1C1C;
+    --red:    #B91C1C;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Source Serif 4', Georgia, serif; background: var(--cream); color: var(--ink); overflow-x: hidden; }
+
+  /* WARNING */
+  .warning-bar { background: repeating-linear-gradient(-45deg,#fbbf24,#fbbf24 10px,#1C1C1C 10px,#1C1C1C 20px); }
+  .warning-bar-inner { background: rgba(0,0,0,.82); color: #fbbf24; font-family:'Bebas Neue',sans-serif; font-size:1rem; letter-spacing:.12em; text-align:center; padding:.55rem 1rem; }
+  .warning-bar-inner span { color:#fff; }
+
+  /* HEADER */
+  header { background:var(--blue); position:sticky; top:0; z-index:100; border-bottom:4px solid var(--orange); box-shadow:0 4px 24px rgba(0,0,0,.35); }
+  .header-inner { max-width:1100px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; padding:.7rem 1.5rem; gap:1rem; }
+  .header-brand { display:flex; align-items:center; gap:.9rem; }
+  .header-logo {
+    width: 54px; height: 54px; border-radius: 50%;
+    object-fit: cover; flex-shrink: 0;
+    border: 2px solid var(--gold);
+    /* Si no hay logo, se muestra un fondo azul oscuro */
+    background: #0d2461;
+  }
+  .brand-text { line-height:1.1; }
+  .brand-title { font-family:'Bebas Neue',sans-serif; font-size:2.1rem; color:#fff; letter-spacing:.06em; }
+  .brand-sub { font-size:.7rem; color:var(--gold); letter-spacing:.18em; text-transform:uppercase; }
+  .header-meta { text-align:right; color:rgba(255,255,255,.65); font-size:.78rem; letter-spacing:.06em; line-height:1.7; }
+  .header-meta strong { color:var(--gold); }
+
+  nav { background:var(--orange); overflow-x:auto; white-space:nowrap; }
+  nav ul { list-style:none; display:flex; max-width:1100px; margin:0 auto; padding:0 1rem; }
+  nav ul li a { display:inline-block; padding:.5rem .85rem; color:#fff; font-family:'Bebas Neue',sans-serif; font-size:.95rem; letter-spacing:.08em; text-decoration:none; transition:background .2s; }
+  nav ul li a:hover { background:rgba(0,0,0,.2); }
+
+  /* HERO */
+  .hero { background:linear-gradient(135deg,var(--blue) 0%,#0d2461 60%,var(--orange) 100%); color:#fff; padding:4rem 1.5rem 3rem; text-align:center; position:relative; overflow:hidden; }
+  .hero::before { content:''; position:absolute; inset:0; background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E"); }
+  .hero h1 { font-family:'Bebas Neue',sans-serif; font-size:clamp(3rem,8vw,6rem); letter-spacing:.04em; line-height:1; position:relative; }
+  .hero h1 span { color:var(--gold); }
+  .hero p { font-size:1.1rem; opacity:.85; margin-top:.8rem; font-style:italic; position:relative; }
+
+  /* PHOTOS */
+  .photo {
+    width: 100%; border-radius: 8px;
+    object-fit: cover; display: block;
+    background: #dde3ed; /* color de fondo mientras carga */
+  }
+  .photo-round { border-radius: 50%; }
+  .photo-h-200 { height: 200px; }
+  .photo-h-220 { height: 220px; }
+  .photo-h-240 { height: 240px; }
+  .photo-h-260 { height: 260px; }
+  .photo-h-280 { height: 280px; }
+  .photo-h-300 { height: 300px; }
+
+  /* GRIDS */
+  .img-grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+  .img-grid-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:1rem; }
+  @media(max-width:640px) { .img-grid-2,.img-grid-3 { grid-template-columns:1fr; } }
+
+  /* LAYOUT */
+  main { max-width:1100px; margin:0 auto; padding:2.5rem 1.5rem 3rem; }
+  section { margin-bottom:3rem; animation:fadeUp .5s ease both; }
+
+  .section-label { display:inline-block; font-family:'Bebas Neue',sans-serif; font-size:.85rem; letter-spacing:.25em; text-transform:uppercase; padding:.25rem .7rem; border-radius:2px; margin-bottom:.6rem; }
+  .label-orange { background:var(--orange); color:#fff; }
+  .label-blue   { background:var(--blue);   color:#fff; }
+  .label-red    { background:var(--red);    color:#fff; }
+  .label-gold   { background:var(--gold);   color:#fff; }
+  .label-green  { background:#166534;       color:#fff; }
+  .label-dark   { background:var(--ink);    color:#fff; }
+
+  h2.section-title { font-family:'Playfair Display',Georgia,serif; font-size:clamp(1.8rem,4vw,2.6rem); line-height:1.15; margin-bottom:1.2rem; }
+  .section-rule { border:none; border-top:3px solid var(--orange); margin:2.5rem 0; }
+
+  .card { background:#fff; border-radius:6px; box-shadow:0 2px 14px rgba(0,0,0,.08); padding:1.8rem 2rem; margin-bottom:1.5rem; }
+  .card-blue   { background:var(--blue);   color:#fff; }
+  .card-orange { background:var(--orange); color:#fff; }
+  .card-gray   { background:#f3f4f6; }
+
+  .sig { font-family:'Playfair Display',serif; font-style:italic; color:var(--orange); font-size:1rem; }
+  .byline-sm { font-size:.8rem; color:#888; margin-top:.8rem; }
+
+  .two-col { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; align-items:start; }
+  @media(max-width:640px){ .two-col { grid-template-columns:1fr; } }
+
+  .anecdota-box { border-left:5px solid var(--orange); padding:1.2rem 1.5rem; background:#fff7f0; border-radius:0 6px 6px 0; margin-bottom:1.2rem; }
+  .anecdota-box h3 { font-family:'Bebas Neue',sans-serif; font-size:1.6rem; letter-spacing:.04em; color:var(--orange); margin-bottom:.6rem; }
+  .anecdota-box p { line-height:1.75; margin-bottom:.7rem; }
+  .anecdota-box .byline { font-size:.82rem; color:#888; letter-spacing:.06em; text-transform:uppercase; }
+
+  .leyenda-layout { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; }
+  @media(max-width:640px){ .leyenda-layout { grid-template-columns:1fr; } }
+  .leyenda-layout p { line-height:1.8; margin-bottom:.8rem; font-weight:600; color:#fff; }
+
+  .score-table { width:100%; border-collapse:collapse; margin:1rem 0; }
+  .score-table th,.score-table td { padding:.8rem 1.2rem; text-align:center; border:1px solid rgba(255,255,255,.2); font-size:1.1rem; }
+  .score-table th { font-family:'Bebas Neue',sans-serif; font-size:1.2rem; letter-spacing:.08em; }
+  .score-winner { font-size:1.5rem; font-weight:700; color:var(--gold); }
+
+  blockquote.teacher-quote { background:#f0f4ff; border-left:4px solid var(--blue); padding:1rem 1.4rem; margin:.8rem 0; border-radius:0 6px 6px 0; font-style:italic; }
+  blockquote.teacher-quote cite { display:block; margin-top:.4rem; font-style:normal; font-weight:700; color:var(--blue); font-size:.88rem; }
+
+  .tech-card { background:var(--ink); color:#fff; border-radius:8px; padding:1.8rem 2rem; position:relative; overflow:hidden; }
+  .tech-card::before { content:''; position:absolute; top:-40px; right:-40px; width:150px; height:150px; border-radius:50%; background:var(--orange); opacity:.15; }
+  .tech-card h3 { font-family:'Bebas Neue',sans-serif; font-size:1.7rem; color:var(--gold); margin-bottom:.8rem; letter-spacing:.04em; }
+  .tech-card p { line-height:1.8; color:#d1d5db; margin-bottom:.7rem; }
+
+  .cal-grid { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; }
+  @media(max-width:640px){ .cal-grid { grid-template-columns:1fr; } }
+  .cal-box { background:#fff; border-radius:8px; padding:1.2rem 1.5rem; box-shadow:0 2px 10px rgba(0,0,0,.07); }
+  .cal-box h3 { font-family:'Bebas Neue',sans-serif; font-size:1.3rem; color:var(--blue); margin-bottom:.8rem; letter-spacing:.06em; border-bottom:2px solid var(--orange); padding-bottom:.4rem; }
+  .cal-event { display:flex; gap:.7rem; margin-bottom:.5rem; font-size:.9rem; line-height:1.5; }
+  .cal-day { font-weight:700; color:var(--orange); min-width:2.2rem; flex-shrink:0; }
+
+  .facts-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1.2rem; }
+  .fact-card { background:#fff; border-radius:8px; padding:1.4rem; box-shadow:0 2px 12px rgba(0,0,0,.07); border-top:4px solid var(--gold); }
+  .fact-card h4 { font-family:'Bebas Neue',sans-serif; font-size:1.15rem; color:var(--blue); margin-bottom:.6rem; letter-spacing:.05em; }
+  .fact-card p { font-size:.9rem; line-height:1.7; }
+  .fact-emoji { font-size:1.8rem; display:block; margin-bottom:.4rem; }
+
+  .Xhunca-layout { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; align-items:start; }
+  @media(max-width:640px){ .Xhunca-layout { grid-template-columns:1fr; } }
+  .fun-fact-bubble { background:var(--orange); color:#fff; border-radius:12px; padding:.7rem 1rem; font-size:.9rem; line-height:1.5; margin-bottom:.6rem; }
+
+  .news-layout { display:grid; grid-template-columns:1fr 1.4fr; gap:1.8rem; align-items:start; }
+  @media(max-width:640px){ .news-layout { grid-template-columns:1fr; } }
+  .news-headline { font-family:'Playfair Display',serif; font-style:italic; font-size:1.1rem; border-top:3px double var(--ink); border-bottom:3px double var(--ink); padding:.6rem 0; margin:.8rem 0; }
+  .interview-q { font-weight:700; color:var(--blue); margin-bottom:.3rem; font-size:.93rem; }
+  .interview-a { font-style:italic; margin-bottom:.2rem; line-height:1.65; }
+  .interview-cite { font-size:.78rem; color:#888; letter-spacing:.04em; text-transform:uppercase; margin-bottom:1rem; }
+
+  .vs-grid { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; background:#FEF08A; border-radius:10px; padding:1.5rem; }
+  @media(max-width:600px){ .vs-grid { grid-template-columns:1fr; } }
+  .vs-col h3 { font-family:'Bebas Neue',sans-serif; font-size:1.4rem; letter-spacing:.08em; margin-bottom:1rem; text-align:center; }
+  .vs-col.antes { color:#166534; }
+  .vs-col.ahora { color:var(--blue); }
+  .vs-item { background:#fff; border-radius:6px; padding:.9rem 1rem; margin-bottom:.8rem; box-shadow:0 1px 6px rgba(0,0,0,.06); }
+  .vs-item h4 { font-size:.82rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; margin-bottom:.3rem; color:var(--orange); }
+  .vs-item p { font-size:.88rem; line-height:1.6; }
+
+  .resena-layout { display:grid; grid-template-columns:1fr 1fr; gap:2rem; align-items:start; }
+  @media(max-width:640px){ .resena-layout { grid-template-columns:1fr; } }
+  .resena-layout p { line-height:1.8; margin-bottom:.9rem; }
+  .stars { color:var(--gold); font-size:1.4rem; letter-spacing:.1em; }
+  .movie-poster { background:#166534; border-radius:8px; padding:1.5rem; color:#fff; text-align:center; margin-bottom:1rem; }
+  .movie-poster h3 { font-family:'Bebas Neue',sans-serif; font-size:2.5rem; color:var(--gold); }
+  .movie-poster p { font-size:.85rem; opacity:.85; margin-top:.3rem; }
+
+  footer { background:var(--blue); color:#fff; margin-top:3rem; border-top:5px solid var(--orange); }
+  .footer-inner { max-width:1100px; margin:0 auto; padding:2.5rem 1.5rem 1.5rem; }
+  .footer-title { font-family:'Bebas Neue',sans-serif; font-size:1.5rem; letter-spacing:.12em; color:var(--gold); margin-bottom:1.5rem; border-bottom:1px solid rgba(255,255,255,.15); padding-bottom:.8rem; }
+  .credits-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:1rem; margin-bottom:2rem; }
+  .credit-card { background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.1); border-radius:6px; padding:1rem 1.2rem; }
+  .credit-name { font-weight:700; font-size:1rem; margin-bottom:.25rem; }
+  .credit-role { font-size:.78rem; color:rgba(255,255,255,.6); line-height:1.5; }
+  .footer-bottom { border-top:1px solid rgba(255,255,255,.12); padding-top:1rem; font-size:.78rem; color:rgba(255,255,255,.45); display:flex; justify-content:space-between; flex-wrap:wrap; gap:.5rem; }
+
+  @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+</style>
+</head>
+<body>
+
+<div class="warning-bar">
+  <div class="warning-bar-inner">⚠️ &nbsp;AVISO: Esta página es <span>solo para fines de un proyecto escolar</span>. Dejará de funcionar al concluir el período de proyectos y exámenes.&nbsp; ⚠️</div>
+</div>
+
+<header>
+  <div class="header-inner">
+    <div class="header-brand">
+
+      <img class="header-logo photo-round"
+           src="logo.jpg"
+           alt="Logo CIO">
+
+      <div class="brand-text">
+        <div class="brand-title">CIO HOY</div>
+        <div class="brand-sub">Colegio Inglés de Occidente</div>
+      </div>
+    </div>
+    <div class="header-meta"><strong>VOL. 01</strong><br>09 / 03 / 2026<br>Tepic, Nayarit</div>
+  </div>
+  <nav>
+    <ul>
+      <li><a href="#editorial">Editorial</a></li>
+      <li><a href="#anecdotas">Anécdotas</a></li>
+      <li><a href="#leyendas">Leyendas</a></li>
+      <li><a href="#deportes">Deportes</a></li>
+      <li><a href="#cio-cuenta">Lo que CIO cuenta</a></li>
+      <li><a href="#tecnologia">Tecnología</a></li>
+      <li><a href="#calendario">Calendario</a></li>
+      <li><a href="#sabias">¿Sabías que?</a></li>
+      <li><a href="#Xhunca">Xhunca</a></li>
+      <li><a href="#inseguridad">Inseguridad</a></li>
+      <li><a href="#antes-ahora">Antes vs Ahora</a></li>
+      <li><a href="#resena">Reseña</a></li>
+    </ul>
+  </nav>
+</header>
+
+<div class="hero">
+  <h1>Las noticias más <span>Frescas</span></h1>
+  <p>La revista del Colegio Inglés de Occidente — Vol. 01</p>
+</div>
+
+<main>
+
+<section id="editorial">
+  <div class="section-label label-orange">Editorial</div>
+  <h2 class="section-title">Bienvenidos a CIO HOY</h2>
+  <div class="two-col">
+    <div class="card" style="margin-bottom:0;">
+      <p style="font-size:1.1rem;line-height:1.8;margin-bottom:1rem;">La escuela no solo es un lugar para adquirir conocimiento sino también para vivir experiencias y construir recuerdos.</p>
+      <p style="font-size:1.1rem;line-height:1.8;margin-bottom:1rem;">En esta revista buscamos enseñar estos recuerdos y dejar que las personas digan sus opiniones sobre lo que quieran.</p>
+      <p style="font-size:1.1rem;line-height:1.8;margin-bottom:1rem;">Los invitamos a leer, participar y formar parte de este proyecto para crear una voz y conciencia.</p>
+      <p class="sig">– Equipo editorial.</p>
+    </div>
+
+    <img class="photo photo-h-280"
+         src="editorial.jpg"
+         alt="Foto editorial">
+
+  </div>
+</section>
+
+<hr class="section-rule">
+<section id="anecdotas">
+  <div class="section-label label-orange">Anécdotas</div>
+  <h2 class="section-title">Historias que dejan huella</h2>
+  <p style="margin-bottom:1.5rem;color:#555;font-style:italic;">Bienvenidos fanáticos de las desgracias ajenas. Los alumnos de nuestra institución comparten sus anécdotas más memorables.</p>
+
+  <div class="two-col" style="margin-bottom:1.2rem;">
+    <div class="anecdota-box" style="margin-bottom:0;">
+      <h3>El Karma Me Golpeó la Cara</h3>
+      <p>Hace dos años en segundo de secundaria me encontraba afuera del salón de física elemental con mi amiga Victoria, ambas estábamos aburridas cuando en el piso vimos una plata y una mochila abierta.</p>
+      <p><em>–¿Y si se la echamos a Octavio en la mochila?–</em> me dijo emocionada y yo acepté. Nos paramos ansiosas, cuando de pronto patearon un balón de fútbol tan fuerte que rebotó en una pared y llegó a mi cara.</p>
+      <p>Finalmente mi maestro me llevó a enfermería.<br>
+      <em>–¿Puedes abrir más los ojos?–</em><br>
+      <em>–Soy de ojo chiquito, no puedo abrirlos más–</em> respondí, haciendo reír al maestro.</p>
+      <p>Moralmente sí sentí el karma instantáneo.</p>
+      <div class="byline">Escritora anónima · Editado por: Isaac Partida</div>
+    </div>
+</section>
+<hr class="section-rule">
+<section id="leyendas">
+  <div class="section-label label-blue">Leyendas</div>
+  <h2 class="section-title">La Pascualita</h2>
+  <p style="margin-bottom:1.2rem;font-style:italic;color:#555;">"El maniquí que le crecen las uñas"</p>
+  <div class="card card-blue">
+    <div class="leyenda-layout">
+      <div>
+        <p>Esta se sitúa en el estado de Chihuahua en la tienda de vestidos de novia llamada <strong>"La Popular"</strong>. La leyenda se centra en Pascuala la dueña y su hija Pascualita, una mujer joven y bella.</p>
+        <p>Pascualita se comprometió con un hombre, pero falleció un día antes de su boda por la picadura de una araña venenosa, sin poder usar el gran vestido que su madre le había confeccionado.</p>
+
+        <img class="photo photo-h-220"
+             src="pascualita.png"
+             alt="La Pascualita"
+             style="margin-top:.8rem;">
+
+      </div>
+      <div>
+        <p>Tras la muerte de la joven, llegó a la tienda un nuevo maniquí peculiarmente idéntico a Pascualita. La gente rumoreó que Pascuala había embalsamado el cadáver de su hija, lo cual siempre negó.</p>
+        <p>La leyenda cuenta que el maniquí mueve sus ojos por las noches, cambia de posición, le crecen las uñas y encaneció el pelo. Si quieres un matrimonio feliz debes comprar el vestido que exhibe.</p>
+
+        <img class="photo photo-h-220"
+             src="pascualita2.png"
+             alt="El maniquí de La Pascualita"
+             style="margin-top:.8rem;">
+
+      </div>
+    </div>
+  </div>
+  <p class="byline-sm">Editado por: Aylene Bernal</p>
+</section>
+
+<hr class="section-rule">
+<section id="deportes">
+  <div class="section-label label-orange">Deportes</div>
+  <h2 class="section-title">Sport Day &amp; Domingo Familiar</h2>
+
+  <div class="card" style="margin-bottom:1rem;">
+    <p style="line-height:1.8;margin-bottom:.8rem;">Este domingo 8 de marzo tuvo lugar el evento dedicado a los deportes y convivencia familiar. Los alumnos se separan en colores <strong style="color:var(--blue)">azul</strong> y <strong style="color:var(--orange)">naranja</strong>, compitiendo en juegos y actividades para ganar puntos.</p>
+  </div>
+
+  <div class="img-grid-3" style="margin-bottom:1rem;">
+    <img class="photo photo-h-200" src="evento1.jpg" alt="Foto evento deportivo 1">
+    <img class="photo photo-h-200" src="evento2.jpg" alt="Foto evento deportivo 2">
+    <img class="photo photo-h-200" src="evento3.jpg" alt="Foto evento deportivo 3">
+  </div>
+
+  <div class="card card-orange">
+    <h3 style="font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.06em;margin-bottom:1rem;">🏆 Resultados — Puntuación y Ganador</h3>
+    <p style="margin-bottom:1rem;font-size:1.05rem;line-height:1.7;">El color <strong style="text-decoration:underline;">azul</strong> resultó campeón con tan solo <strong>25 puntos de diferencia</strong>.</p>
+    <table class="score-table">
+      <thead><tr><th></th><th style="color:#a5b4fc;">Azules</th><th style="color:#fed7aa;">Naranjas</th></tr></thead>
+      <tbody><tr><td><strong>Puntos Totales</strong></td><td class="score-winner">1,635</td><td style="font-size:1.3rem;font-weight:600;">1,610</td></tr></tbody>
+    </table>
+  </div>
+
+  <div class="img-grid-2" style="margin-top:1rem;">
+    <img class="photo photo-h-220" src="premiacion1.png" alt="Premiación 1">
+  </div>
+</section>
+
+<hr class="section-rule">
+<section id="cio-cuenta">
+  <div class="section-label label-blue">Lo que CIO cuenta</div>
+  <h2 class="section-title">¿Cómo se la pasaron los alumnos este domingo familiar?</h2>
+  <p style="margin-bottom:1.5rem;color:#555;line-height:1.8;">Este domingo aprovechamos la oportunidad de preguntarle al personal, familiares y estudiantes de la institución como se la estaban pasando en este evento deportivo, haciéndoles diversas preguntas (principalmente al inicio de la jornada) con el objetivo de saber que nos contaba el CIO.</p>
+
+  <div class="two-col" style="margin-bottom:1.2rem;">
+    <div>
+      <img class="photo photo-h-220"
+           src="paronamica.png"
+           alt="Foto panorámica del evento"
+           style="margin-bottom:1rem;">
+
+      <div class="card" style="margin-bottom:0;">
+        <h3 style="color:var(--blue);margin-bottom:.7rem;font-size:1rem;">¿Qué expectativas tienes para hoy?</h3>
+        <p style="font-style:italic;line-height:1.7;margin-bottom:.8rem;">Ganar, divertirnos con las actividades y ver la competencia.</p>
+        <h3 style="color:var(--blue);margin-bottom:.7rem;font-size:1rem;">¿En qué quieren participar más?</h3>
+        <p style="font-style:italic;line-height:1.7;margin-bottom:.8rem;">Voleibol, fútbol y juegos de padres y madres.</p>
+        <h3 style="color:var(--blue);margin-bottom:.7rem;font-size:1rem;">Predicciones</h3>
+        <p style="font-style:italic;">8 azules – 8 naranjas.</p>
+      </div>
+    </div>
+    <div>
+      <img class="photo photo-h-200"
+           src="entrevista.png"
+           alt="Foto entrevistas"
+           style="margin-bottom:1rem;">
+
+      <h3 style="font-size:1.05rem;font-weight:700;margin-bottom:1rem;">¿Qué equipo cree que vaya a ganar?</h3>
+      <blockquote class="teacher-quote">"Lo que yo he visto señor, es que hay más actitud en los naranjas."<cite>– Profesor Omar</cite></blockquote>
+      <blockquote class="teacher-quote">"Azul, hay mayor participación, pero aún así creo que ambos tienen oportunidad de ganar."<cite>– Maestra Alejandra</cite></blockquote>
+      <blockquote class="teacher-quote">"En base a los puntos actuales, va ganando el equipo azul."<cite>– Profesor Julio</cite></blockquote>
+
+      <img class="photo photo-h-200"
+           src="adicional.png"
+           alt="Foto adicional CIO"
+           style="margin-top:1rem;">
+    </div>
+  </div>
+  <p class="byline-sm">Editado por: Isaac Partida</p>
+</section>
+
+<hr class="section-rule">
+
+<section id="tecnologia">
+  <div class="section-label label-dark">Tecnología</div>
+  <h2 class="section-title">Lo más nuevo del mundo tecnológico</h2>
+
+  <div class="two-col" style="margin-bottom:1.2rem;">
+    <div class="tech-card">
+      <h3>¡Nuevo sistema operativo de Google!</h3>
+      <p>El sucesor de Chrome OS, llamado <strong style="color:var(--gold);">Aluminium OS</strong>, planea unificar Android y Chrome OS. Fecha planeada: <strong style="color:var(--gold);">finales de 2026</strong>. Será Android 16 o 17 adaptado para computadoras con compatibilidad total para apps Android.</p>
+      <p>Chrome OS continuará, enfocado en entornos educativos y empresariales.</p>
+      <p style="font-size:.8rem;color:#9ca3af;">Editado por: Omar Galaviz</p>
+    </div>
+
+    <img class="photo photo-h-380"
+         src="aliminium.png"
+         alt="Aluminium OS de Google">
+  </div>
+
+  <div class="two-col">
+    <img class="photo photo-h-380"
+         src="samsung.png"
+         alt="Pantalla de privacidad Samsung">
+
+    <div class="tech-card" style="background:#1a1a2e;">
+      <h3>Samsung: ¿El fin de las micas de privacidad?</h3>
+      <p>Samsung sacó una pantalla que actúa como mica de privacidad: el contenido solo se ve claramente de frente; desde un costado se oscurece o se vuelve ilegible.</p>
+      <p>Combina capas ópticas con ajustes de software para activar o desactivar la función.</p>
+      <p style="text-align:center;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:var(--gold);letter-spacing:.12em;">DEPENDE DEL ÁNGULO</p>
+      <p style="font-size:.8rem;color:#9ca3af;">Editado por: Omar Galaviz</p>
+    </div>
+  </div>
+</section>
+
+<hr class="section-rule">
+
+<section id="calendario">
+  <div class="section-label label-blue">Lo más relevante del mes</div>
+  <h2 class="section-title">Resumen y noticias — Feb &amp; Mar 2026</h2>
+  <p style="margin-bottom:1.5rem;color:#555;font-style:italic;">A veces suceden tantas cosas que nos olvidamos de todo lo que sucede…</p>
+
+  <div class="cal-grid" style="margin-bottom:1.5rem;">
+    <div class="cal-box">
+      <h3>Febrero 2026</h3>
+      <div class="cal-event"><span class="cal-day">Mar 10</span><span>Día de la fuerza aérea mexicana</span></div>
+      <div class="cal-event"><span class="cal-day">Vie 13</span><span>Posada y eventos escolares por San Valentín</span></div>
+      <div class="cal-event"><span class="cal-day">Sáb 14</span><span>Día de San Valentín</span></div>
+      <div class="cal-event"><span class="cal-day">Jue 19</span><span>Día del ejército mexicano</span></div>
+      <div class="cal-event"><span class="cal-day">Mar 24</span><span>Día de la bandera</span></div>
+      <div class="cal-event"><span class="cal-day">Vie 27</span><span>Consejo técnico</span></div>
+    </div>
+    <div class="cal-box">
+      <h3>Marzo 2026</h3>
+      <div class="cal-event"><span class="cal-day">Lun 2</span><span>Inicio de semana de proyectos en preparatoria</span></div>
+      <div class="cal-event"><span class="cal-day">Dom 8</span><span>Domingo familiar</span></div>
+      <div class="cal-event"><span class="cal-day">Lun 9</span><span>Suspensión de clases — Guerra de los Pasteles</span></div>
+      <div class="cal-event"><span class="cal-day">Mar 10</span><span>Continuación de evaluaciones en preparatoria</span></div>
+      <div class="cal-event"><span class="cal-day">Jue 19</span><span>Fin del primer imperio mexicano</span></div>
+      <div class="cal-event"><span class="cal-day">Vie 27</span><span>Consejo técnico</span></div>
+    </div>
+  </div>
+
+  <p class="byline-sm">Editado por: Isaac Partida</p>
+</section>
+
+<hr class="section-rule">
+<section id="sabias">
+  <div class="section-label label-gold">¿Sabías que?</div>
+  <h2 class="section-title">Datos curiosos de México</h2>
+
+  <div class="facts-grid" style="margin-bottom:1.5rem;">
+    <div class="fact-card"><span class="fact-emoji"></span><h4>Nuestra hermosa bandera</h4><p>La bandera de México fue escogida como la más bella del mundo en una encuesta de "El Diario" en 2008.</p></div>
+    <div class="fact-card"><span class="fact-emoji"></span><h4>Pequeño gran presidente</h4><p>Se dice que Benito Juárez medía tan solo 1.37 m (7 cm más que un pingüino emperador), uno de los presidentes más pequeños.</p></div>
+    <div class="fact-card"><span class="fact-emoji"></span><h4>Un largo mandato</h4><p>Pedro Lascuráin fue presidente de México por tan solo 45 minutos en 1913, el más corto de la historia.</p></div>
+    <div class="fact-card"><span class="fact-emoji"></span><h4>Consejos de otra vida</h4><p>Francisco I Madero practicaba sesiones espiritistas en las que supuestamente recibía mensajes como "guía" durante su gobierno.</p></div>
+  </div>
+
+  <p class="byline-sm">Editado por: Aylene Bernal</p>
+</section>
+
+<hr class="section-rule">
+
+<section id="Xhunca">
+  <div class="section-label label-orange">Curiosidades — Mascotas del CIO</div>
+  <h2 class="section-title">Xhunca &amp; LeonCIO</h2>
+
+  <div class="Xhunca-layout">
+    <div>
+      <p style="line-height:1.8;margin-bottom:1rem;">En el Colegio Inglés del Occidente existen 2 mascotas. La más conocida es el león <strong>LeonCIO</strong> (nombre ganador de un concurso). Pero no podemos olvidarnos de <strong>Xhunca</strong>, el bulldog inglés que llegó con 2 meses a la escuela para calmar a los niños y traer felicidad.</p>
+      <div class="fun-fact-bubble">🐾 <strong>Xhunca</strong> en zapoteco significa "la más amada y pequeña de la familia".</div>
+      <div class="fun-fact-bubble">📍 Nació en Guadalajara el 4 de Julio (coincide con la independencia de E.U.A.).</div>
+      <div class="fun-fact-bubble">👁️ La han operado 2 veces en los ojos.</div>
+      <div class="fun-fact-bubble" style="background:var(--blue);">⚖️ Pesa 27 kg, usa talla 14. Le encanta el pan y las frutas.</div>
+      <div class="card card-gray" style="margin-top:.8rem;">
+        <p style="font-style:italic;line-height:1.8;font-size:.95rem;">Un día los niños de primaria hicieron un picnic, se pararon a jugar y cuando regresaron Xhunca se había comido toda la comida. 🐶</p>
+      </div>
+    </div>
+    <div>
+      <img class="photo photo-h-300"
+           src="Xhunca1.png"
+           alt="Xhunca la mascota del CIO"
+           style="margin-bottom:1rem;">
+
+      <img class="photo photo-h-200"
+           src="Xhunca2.png"
+           alt="Xhunca jugando">
+    </div>
+  </div>
+  <p class="byline-sm">Editado por: Carly Silva y Aylene Bernal</p>
+</section>
+
+<hr class="section-rule">
+
+<section id="inseguridad">
+  <div class="section-label label-red">Reportaje</div>
+  <h2 class="section-title">Inseguridad en el Ranchito (Tepic)</h2>
+  <p class="news-headline">«La pérdida de uno, significó el fin para muchos»</p>
+
+  <div class="news-layout">
+    <div>
+      <p style="line-height:1.8;margin-bottom:.9rem;">Nos quejabamos que no pasaba nada, pero ahora lo extrañamos</p>
+      <img class="photo photo-h-220"
+           src="reportaje1.png"
+           alt="Foto reportaje inseguridad"
+           style="margin-bottom:1rem;">
+
+      <p style="line-height:1.8;margin-bottom:.9rem;">El pasado domingo 22 de febrero en Tepic, Nayarit, empezó como una mañana común, pero todo se vio interrumpido tras confirmarse la caída de una persona importante en un grupo de delincuencia, que empezó a aterrorizar las calles con bloqueos, robos y amenazas.</p>
+      <p style="line-height:1.8;">A raíz de esto decidimos adentrarnos en las opiniones de los adolescentes de secundaria del CIO.</p>
+
+      <img class="photo photo-h-200"
+           src="mx.png"
+           alt="Bandera de México"
+           style="margin-top:1rem;">
+
+      <p class="byline-sm">Editado por: Carly Silva</p>
+    </div>
+
+    <div>
+      <div class="section-label label-red" style="margin-bottom:.8rem;">Opiniones de adolescentes del CIO</div>
+      <p style="font-weight:700;text-align:center;margin-bottom:1.2rem;font-style:italic;">"No somos adultos, pero entendemos como uno."</p>
+
+      <div class="interview-q">¿Qué puedes decir sobre México?</div>
+      <p class="interview-a">"Que está muy bonito, tiene mucha cultura y diversidad, únicamente su punto débil es la delincuencia y la corrupción."</p>
+      <p class="interview-cite">– Ian Sainz, 2B secundaria.</p>
+
+      <div class="interview-q">¿Cómo te enteraste de la situación actual?</div>
+      <p class="interview-a">"Afuera de La Loma en un partido, nos sacaron de ahí y en el camino vi gente irse y las calles solas en silencio."</p>
+      <p class="interview-cite">– Joseph Aguirre, 2B secundaria.</p>
+
+      <div class="interview-q">¿Con qué fuentes de información te has enterado de más noticias?</div>
+      <p class="interview-a">"Noticieros y redes sociales."</p>
+      <p class="interview-cite">– Melani García, 2B secundaria.</p>
+
+      <div class="interview-q">¿Cómo te sientes al respecto de esta problemática?</div>
+      <p class="interview-a">"Mal, tristeza e inseguridad porque puede ser algo nuevo."</p>
+      <p class="interview-cite">– Heidy Silva, 2A secundaria.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="section-rule">
+
+<section id="antes-ahora">
+  <div class="section-label label-gold">Antes vs Ahora</div>
+  <h2 class="section-title">Las cosas típicas de la escuela han cambiado mucho</h2>
+  <p style="margin-bottom:1.5rem;font-style:italic;color:#555;">Entrevistamos a alumnos del CIO y a sus maestros para ver sus distintas perspectivas.</p>
+
+  <div class="vs-grid">
+    <div class="vs-col antes">
+      <h3>Antes</h3>
+      <div class="vs-item"><h4>Rituales para antes del examen</h4><p>Temario pequeño, comer almendras y azúcar, volado, tarjetas, persignarse y notas.</p></div>
+      <div class="vs-item"><h4>Cómo justificar una falta</h4><p>Se cruzaba con una clase extra, me enfermé y salí de la ciudad.</p></div>
+      <div class="vs-item"><h4>Temas para distraer al maestro</h4><p>Anécdotas referentes al tema, cómo estuvo su fin de semana, si quiere tostitos y si tiene mascotas.</p></div>
+      <div class="vs-item"><h4>Excusas para puntos extras</h4><p>Llevarle un dulce o un refresco, participar o trabajo extra.</p></div>
+    </div>
+    <div class="vs-col ahora">
+      <h3>Ahora</h3>
+      <div class="vs-item"><h4>Rituales para antes del examen</h4><p>Hacerse trenzas, manifestar, rezar y pegarse cabeza con cabeza.</p></div>
+      <div class="vs-item"><h4>Cómo justificar una falta</h4><p>Tráfico, un familiar en el hospital, enfermedad, quedarse dormido o partidos.</p></div>
+      <div class="vs-item"><h4>Temas para distraer al maestro</h4><p>Preguntas de política, materia favorita, cómo se siente, cómo está su familia y cuánto tiempo lleva dando clases.</p></div>
+      <div class="vs-item"><h4>Excusas para puntos extras</h4><p>Limpiarle el salón, llorarle, rogarle, decir que prestas atención y trabajo extra.</p></div>
+    </div>
+  </div>
+  <p class="byline-sm">Editado por: Aylene Bernal y Carly Silva.</p>
+</section>
+
+<hr class="section-rule">
+
+<section id="resena">
+  <div class="section-label label-green">Reseña Cinematográfica</div>
+  <h2 class="section-title">Frankenstein — Guillermo del Toro</h2>
+
+  <div class="resena-layout">
+    <div>
+      <p>Cercana la premiación de los Oscars, uno de los más nominados es el director originario de Guadalajara <strong>Guillermo del Toro</strong>.</p>
+      <p>En <em>Frankenstein</em> se cuenta la historia del doctor Víctor Frankenstein que, tras la dolorosa muerte de su madre, decide traer a la vida a una criatura compuesta de diferentes cuerpos.</p>
+      <p>La criatura llena de rencor persigue a Víctor por años. Logra escapar, aprende a leer y escribir con un anciano, y luego pide a Víctor una compañera — petición que desencadena una tragedia.</p>
+      <p>El filme es una obra maestra visual con el estilo oscuro característico de Guillermo: patrones únicos y vestuarios que cuentan la historia. Un gran trabajo artístico y técnico digno de sus nominaciones.</p>
+      <div class="stars">★★★★★</div>
+      <p style="font-size:.85rem;color:#555;margin-top:.4rem;"><strong>Por:</strong> Aylene Bernal</p>
+
+      <img class="photo photo-h-300"
+           src="frankenstein.png"
+           alt="Póster de Frankenstein"
+           style="margin-top:1rem;">
+    </div>
+    <div>
+      <div class="movie-poster">
+        <h3>FRANKENSTEIN</h3>
+        <p style="font-size:1rem;margin-bottom:.3rem;">Guillermo del Toro</p>
+        <p>Director originario de Guadalajara · Ganador de tres Oscars</p>
+        <div style="margin:1rem 0;height:2px;background:rgba(255,255,255,.2);"></div>
+        <div style="background:rgba(0,0,0,.3);border-radius:6px;padding:1rem;">
+          <p style="font-size:.85rem;line-height:1.7;font-style:italic;">"Nos enseña a empatizar, no juzgar las apariencias, a perdonar y a ver que lo más importante de nosotros es nuestra alma."</p>
+        </div>
+        <p style="font-size:.75rem;opacity:.55;margin-top:.8rem;">Netflix · In Select Cinemas</p>
+      </div>
+
+      <img class="photo photo-h-380"
+           src="toro.png"
+           alt="Guillermo del Toro"
+           style="margin-top:1rem;">
+    </div>
+  </div>
+</section>
+<section id="desafio">
+  <div class="section-label label-green">Desafío de la semana</div>
+  <h2 class="section-title">Completa la sopa de letras</h2>
+  <h3>Cosas que encuentras en la escuela.</h3>
+
+
+  <div class="resena-layout">
+    <div>
+      <p>LÁPIZ / CUADERNO / PIZARRON / PLUMA / COMPUTADORA / MESA / MAESTROS / COMPAÑEROS / CALCULADORA / SACAPUNTAS</p>
+      <p style="font-size:.85rem;color:#555;margin-top:.4rem;"><strong>Por:</strong> Isaac Partida</p>
+
+      <img class="photo photo-h-380"
+           src="sopa.png"
+           alt="Pura kk programar esta verga"
+           style="margin-top:1rem;">
+    </div>
+  </div>
+  <br/>
+  <h2 class="section-title">Completa el crucigrama</h2>
+  <h3>Nombres de docentes</h3>
+
+
+  <div class="resena-layout">
+    <div>
+      <p style="font-size:.85rem;color:#555;margin-top:.4rem;"><strong>Por:</strong> Isaac Partida</p>
+
+      <img class="photo photo-h-380"
+           src="crucigrama.png"
+           alt="Pura kk programar esta verga"
+           style="margin-top:1rem;">
+    </div>
+  </div>
+  <br/>
+  <h2 class="section-title">Respuestas de ambas:</h2>
+  <h3>Cosas que encuentras en la escuela</h3>
+  <div class="resena-layout">
+    <div>
+      <img class="photo photo-h-380"
+           src="soparesuelta.png"
+           alt="Pura kk programar esta verga"
+           style="margin-top:1rem;">
+    </div>
+  </div>
+  <h3>Nombres de docentes</h3>
+  <div class="resena-layout">
+    <div>
+      <img class="photo photo-h-380"
+           src="crucigramaresuelto.png"
+           alt="Pura kk programar esta verga"
+           style="margin-top:1rem;">
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-title">Créditos — Equipo Editorial CIO HOY</div>
+    <div class="credits-grid">
+      <div class="credit-card"><div class="credit-name">Isaac Partida</div><div class="credit-role">Director general, editor, fotógrafo y diseñador.</div></div>
+      <div class="credit-card"><div class="credit-name">Aylene Bernal</div><div class="credit-role">Editora, fotógrafa, redactora y entrevistadora.</div></div>
+      <div class="credit-card"><div class="credit-name">Carly Silva</div><div class="credit-role">Editora, redactora y entrevistadora.</div></div>
+      <div class="credit-card"><div class="credit-name">Omar Galaviz</div><div class="credit-role">Editor, redactor, fotógrafo y diseñador. Tambien el se aventó la pagina.</div></div>
+      <div class="credit-card"><div class="credit-name">Gregorio Ruesga</div><div class="credit-role">Editor y entrevistador.</div></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 CIO HOY – Colegio Inglés de Occidente, Tepic, Nayarit.</span>
+      <span>Vol. 01 · 09/03/26 · Proyecto escolar</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
